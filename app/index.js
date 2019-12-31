@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import Popular from './components/Popular'
+import Battle from './components/Battle'
 
 // Component
 // - State (manage their own)
@@ -13,7 +14,7 @@ class App extends React.Component {
        // Description of what the UI will look like
         return (
             <div className='container'>
-               <Popular/>
+               <Battle/>
             </div>
         )
         // Babel is needed to convert this JSX code into normal Javascript (browser-readable code)
