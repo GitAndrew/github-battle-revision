@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import Popular from './components/Popular'
 import Battle from './components/Battle'
+import { ThemeProvider } from './contexts/theme'
 
 // Component
 // - State (manage their own)
@@ -10,12 +11,28 @@ import Battle from './components/Battle'
 // - UI
 
 class App extends React.Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            theme: 'light',
+            toggleTheme: () => {
+                this.setState(({ theme }) => ({
+                    theme: theme === 'light' ? 'dark' : 'light'
+                }))
+            }
+        }
+    }
+
     render() {
        // Description of what the UI will look like
         return (
-            <div className='container'>
-               <Battle/>
-            </div>
+            <ThemeProvider value={this.state}>
+                <div className='container'>
+                <Battle/>
+                </div>
+            </ThemeProvider>
         )
         // Babel is needed to convert this JSX code into normal Javascript (browser-readable code)
         //    return React.createElement(
