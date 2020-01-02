@@ -5,6 +5,7 @@ import Popular from './components/Popular'
 import Battle from './components/Battle'
 import { ThemeProvider } from './contexts/theme'
 import Nav from './components/Nav'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 // Component
 // - State (manage their own)
@@ -29,14 +30,17 @@ class App extends React.Component {
     render() {
        // Description of what the UI will look like
         return (
-            <ThemeProvider value={this.state}>
-                <div className={this.state.theme}>
-                    <div className='container'>
-                        <Nav/>
-                        <Popular/>
+            <Router>
+                <ThemeProvider value={this.state}>
+                    <div className={this.state.theme}>
+                        <div className='container'>
+                            <Nav/>
+                            <Route exact path='/' component={Popular}/>
+                            <Route path='/battle' component={Battle}/>
+                        </div>
                     </div>
-                </div>
-            </ThemeProvider>
+                </ThemeProvider>
+            </Router>
         )
         // Babel is needed to convert this JSX code into normal Javascript (browser-readable code)
         //    return React.createElement(
