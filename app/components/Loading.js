@@ -16,7 +16,7 @@ export default function Loading({ text = 'Loading', speed = 300 }) {
     const [ content, setContent ] = React.useState(text)
     const intervalRef = React.useRef()
 
-    const clear = () => window.setInterval(intervalRef.current)
+    const clear = () => window.clearInterval(intervalRef.current)
 
     React.useEffect(() => {
         intervalRef.current = window.setInterval(() => {
