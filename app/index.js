@@ -15,46 +15,30 @@ const Results = React.lazy(() => import('./components/Results'))
 // - Lifecycle
 // - UI
 
-class App extends React.Component {
+function App() {
+    const [ theme, setTheme ] = React.useState('light')
+    const toggleTheme = () => setTheme((theme) => theme === 'light' ? 'dark' : 'light')
 
-    state = {
-        theme: 'light',
-        toggleTheme: () => {
-            this.setState(({ theme }) => ({
-                theme: theme === 'light' ? 'dark' : 'light'
-            }))
-        }
-    }
+    return (
+        <Router>
+            <ThemeProvider value={theme}>
+                <div className={theme}>
+                    <div className='container'>
+                        <Nav toggleTheme={toggleTheme}/>
 
-    render() {
-       // Description of what the UI will look like
-        return (
-            <Router>
-                <ThemeProvider value={this.state}>
-                    <div className={this.state.theme}>
-                        <div className='container'>
-                            <Nav/>
-
-                            <React.Suspense fallback={<Loading/>}>
-                                <Switch>
-                                    <Route exact path='/' component={Popular}/>
-                                    <Route exact path='/battle' component={Battle}/>
-                                    <Route path='/battle/results' component={Results}/>
-                                    <Route render={() => <h1>404</h1>}/>
-                                </Switch>
-                            </React.Suspense>
-                        </div>
+                        <React.Suspense fallback={<Loading/>}>
+                            <Switch>
+                                <Route exact path='/' component={Popular}/>
+                                <Route exact path='/battle' component={Battle}/>
+                                <Route path='/battle/results' component={Results}/>
+                                <Route render={() => <h1>404</h1>}/>
+                            </Switch>
+                        </React.Suspense>
                     </div>
-                </ThemeProvider>
-            </Router>
-        )
-        // Babel is needed to convert this JSX code into normal Javascript (browser-readable code)
-        //    return React.createElement(
-        //        "div",
-        //        null,
-        //        "Hello World!"
-        //    )
-    }
+                </div>
+            </ThemeProvider>
+        </Router>
+    )
 }
 
 // ReactDOM is de-coupled from the React package so that you can develop in React for other platforms to render to, not necessarily the DOM, e.g. phone apps
